@@ -65,7 +65,18 @@ p{
     .navbar-toggler {
     border-color: #4B0082;
     } 
-    
+    .social-media .icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #4B0082;
+        padding: 30px;
+        border-radius: 100px;
+      }
+      .social-media .icon a{
+        color: #FFFFFF;
+        text-decoration: none;
+      }
 }
 
 /* Dark mode */
@@ -93,6 +104,19 @@ p{
     .navbar-toggler {
     border-color: #FFFFFF;
     } 
+
+    .social-media .icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #FFFFFF;
+        padding: 30px;
+        border-radius: 100px;
+      }
+      .social-media .icon a{
+        color: #4B0082;
+        text-decoration: none;
+      }
 }
 
 .navbar-brand 
