@@ -1,0 +1,119 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    font-family: 'Dancing Script';
+    font-size: 110px;
+}
+p{
+    font-size: 25px;
+}
+
+
+/*  Social media*/
+.social-media {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+
+  }
+  
+  .social-media .icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #4B0082;
+    padding: 30px;
+    border-radius: 100px;
+  }
+  .social-media .icon a{
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+
+
+.content{
+    padding-left: 90px;
+    padding-right: 90px;
+}
+
+
+/* Light mode */
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #FFFFFF;
+        color: #4B0082;
+    }
+    .navbar-brand, .nav-link{
+        color: #4B0082;
+    }
+    a:hover{
+        color: #4B0082;
+    }
+
+    .active{
+        text-decoration-line: underline;
+        color: #4B0082;
+    }
+    
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(75, 0, 130, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    }
+      
+    .navbar-toggler {
+    border-color: #4B0082;
+    } 
+    
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #4B0082;
+        color: #FFFFFF;
+    }
+    .navbar-brand ,.nav-link{
+        color: #FFFFFF;
+    }
+    a:hover{
+        color: #4B0082;
+    }
+
+    .active{
+        text-decoration-line: underline;
+        color: #FFFFFF;
+    }
+   
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    }
+    
+    .navbar-toggler {
+    border-color: #FFFFFF;
+    } 
+}
+
+.navbar-brand 
+{
+    font-size: 30px;
+    text-transform: uppercase; 
+}
+.nav-link{
+    font-size: 18px;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:active,
+.navbar .nav-link:focus,
+.navbar .nav-link:visited 
+.navbar-brand:visited,
+.navbar-brand:focus,
+.navbar-brand:active,
+.navbar-brand:hover
+{
+  background-color: transparent;
+  color: inherit;
+  text-decoration: none;
+}
