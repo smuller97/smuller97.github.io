@@ -65,7 +65,7 @@
         function processItem(item, parentElement) {
           if (typeof item === 'object') {
             var nestedList = document.createElement('ul');
-            parentElement.appendChild(nestedList);
+            //parentElement.appendChild(nestedList);
             
             // Iterate over nested object properties or array elements
             Object.entries(item).forEach(([key, value]) => {
@@ -82,7 +82,7 @@
           } else {
             var paragraph = document.createElement('p');
             paragraph.textContent = item;
-            parentElement.appendChild(paragraph);
+            //parentElement.appendChild(paragraph);
           }
         }
       
