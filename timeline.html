@@ -60,39 +60,32 @@
         data.sort((a, b) => new Date(b.Date) - new Date(a.Date));
 
         var listContainer = document.getElementById("list");
-      
-        // Recursive function to process nested objects and arrays
+
+        // Function to recursively process nested objects and arrays
         function processItem(item, parentElement) {
           if (typeof item === 'object') {
             var nestedList = document.createElement('ul');
-            //parentElement.appendChild(nestedList);
-            
+            parentElement.appendChild(nestedList);
+
             // Iterate over nested object properties or array elements
-            Object.entries(item).forEach(([key, value]) => {
+            Object.values(item).forEach(value => {
               var listItem = document.createElement('li');
-              var listItemContent = document.createElement('p');
-              listItemContent.textContent = key;
-              
-              listItem.appendChild(listItemContent);
+              listItem.textContent = value;
               nestedList.appendChild(listItem);
-              
+
               // Recursively process nested objects and arrays
               processItem(value, listItem);
             });
-          } else {
-            var paragraph = document.createElement('p');
-            paragraph.textContent = item;
-            //parentElement.appendChild(paragraph);
           }
         }
-      
+
         // Iterate over the sorted JSON data and create list items
         data.forEach(item => {
           var listItem = document.createElement('li');
-          
+
           // Recursively process the item
           processItem(item, listItem);
-          
+
           listContainer.appendChild(listItem);
         });
       })
@@ -100,5 +93,4 @@
         console.error('Error:', error);
       });
   </script>
-
 </html>
