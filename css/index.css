@@ -9,33 +9,18 @@ h1 {
 p{
     font-size: 25px;
 }
-.imgIndex{
-    height: 80vh;
+
+ /* Center the container div both horizontally and vertically */
+ .centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; 
 }
 
-/*  Social media*/
-.social-media {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px;
-  }
-  
-  .social-media .icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #4B0082;
-    padding: 30px;
-    border-radius: 100px;
-  }
-  .social-media .icon a{
-    color: #FFFFFF;
-    text-decoration: none;
-  }
-
-.content{
-    padding-left: 90px;
-    padding-right: 90px;
+/* Style for the text lines */
+.text {
+    text-align: center;
 }
 
 
