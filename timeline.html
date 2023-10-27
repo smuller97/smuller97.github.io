@@ -1,96 +1,172 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/index.css">
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Smullers concert journey</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <div class="container-fluid">
-        <!-- Brand -->
-        <a class="navbar-brand" href="index.html">Smuller</a>
-        
-        <!-- Toggle Button -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <!-- Menu Links -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item ">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item ">
-              <a class="nav-link" href="about.html">About me</a>
-            </li>
-           
-            <li class="nav-item active">
-              <a class="nav-link" href="timeline.html">Timeline</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <div class="row align-items-center text-center">
-      <div class="content">
-        <h1>Timeline</h1>
-        <div id="list-container">
-          <ul id="list"></ul>
-        </div>
-       </div>
-    </div>
-  </body>
-  <script>
-    // Load JSON data from external file
-    fetch('content/event/concerts.json')
-      .then(response => response.json())
-      .then(data => {
-        // Sort the data by date in descending order
-        data.sort((a, b) => new Date(b.Date) - new Date(a.Date));
-
-        var listContainer = document.getElementById("list");
-
-        // Function to recursively process nested objects and arrays
-        function processItem(item, parentElement) {
-          if (typeof item === 'object') {
-            var nestedList = document.createElement('ul');
-            parentElement.appendChild(nestedList);
-
-            // Iterate over nested object properties or array elements
-            Object.values(item).forEach(value => {
-              var listItem = document.createElement('li');
-              listItem.textContent = value;
-              nestedList.appendChild(listItem);
-
-              // Recursively process nested objects and arrays
-              processItem(value, listItem);
-            });
-          }
+<head>
+  <title>JSON grouping</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
         }
 
-        // Iterate over the sorted JSON data and create list items
-        data.forEach(item => {
-          var listItem = document.createElement('li');
+        #userInput {
+            width: 300px;
+            padding: 5px;
+            margin: 10px;
+            border: 1px solid #999;
+            border-radius: 5px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+        }
 
-          // Recursively process the item
-          processItem(item, listItem);
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16px;
+        }
 
-          listContainer.appendChild(listItem);
-        });
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  </script>
+        button:hover {
+            background-color: #555;
+        }
+
+        #resultDiv {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #999;
+            border-radius: 5px;
+            background-color: #fff;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <!-- Brand -->
+      <a class="navbar-brand" href="index.html">Smuller</a>
+      
+      <!-- Toggle Button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!-- Menu Links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="timeline.html">Timeline</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+    <input type="text" id="userInput" placeholder="Enter JSON data here">
+    <button onclick="processInput()">Process Input</button>
+    <div id="resultDiv"></div>
+
+    <script>
+        // Initialize jsonData with placeholder data
+        let jsonData = [
+            {
+                "Assignable Id": "1",
+                "Assignable Name": "Sunshine book",
+                "Project, Customer": "June SP",
+                "Day": "27 Oct 2023",
+                "User": "Me",
+                "Spent": "0.25",
+                "SAPNR": "1234"
+            },
+            {
+                "Assignable Id": "2",
+                "Assignable Name": "Sunshine book",
+                "Project, Customer": "June SP",
+                "Day": "27 Oct 2023",
+                "User": "Me",
+                "Spent": "0.25",
+                "SAPNR": "1234"
+            },
+            // Add more data items as needed
+        ];
+
+        // Create an object to store the grouped and summed results
+        let groupedData = {};
+
+        // Function to process the JSON data and update groupedData
+        function processData() {
+            // Reset groupedData
+            groupedData = {};
+
+            // Your grouping and summing code here
+            // ...
+
+            // Iterate through the JSON array
+            jsonData.forEach(item => {
+                const day = item.Day;
+                const sapnr = item.SAPNR;
+                const spent = parseFloat(item.Spent);
+
+                // Check if the combination of "Day" and "SAPNR" exists in groupedData
+                if (!groupedData[day]) {
+                    groupedData[day] = {};
+                }
+
+                if (!groupedData[day][sapnr]) {
+                    groupedData[day][sapnr] = 0;
+                }
+
+                // Sum the "Spent" values for each combination of "Day" and "SAPNR"
+                groupedData[day][sapnr] += spent;
+            });
+        }
+
+        // Function to process the user input and display the results
+        function processInput() {
+            // Get the user input (JSON data) from the HTML input block
+            const userInput = document.getElementById("userInput").value;
+
+            // Try to parse the user input as JSON
+            try {
+                jsonData = JSON.parse(userInput);
+
+                // Update the groupedData using processData function
+                processData();
+
+                // Format the results as requested with line breaks
+                const resultDiv = document.getElementById("resultDiv");
+                let formattedResult = "Result:<br>";
+                let isFirstDate = true; // Track the first date to avoid extra line breaks
+                for (const day in groupedData) {
+                    if (!isFirstDate) {
+                        formattedResult += "<br>";
+                    }
+                    isFirstDate = false;
+                    formattedResult += day + ":<br>";
+                    for (const sapnr in groupedData[day]) {
+                        formattedResult += `${sapnr} : ${groupedData[day][sapnr]},<br>`;
+                    }
+                }
+                resultDiv.innerHTML = formattedResult;
+            } catch (error) {
+                console.error("Invalid JSON input:", error);
+                // Handle the case where the user input is not valid JSON data
+            }
+        }
+    </script>
+</body>
 </html>
