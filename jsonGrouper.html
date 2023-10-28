@@ -9,6 +9,41 @@
 <head>
   <title>JSON grouping</title>
 </head>
+<style>
+   #resultDiv {
+            font-size: 16px;
+            margin: 10px;
+            padding: 10px;
+            max-width: 500px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #userInput {
+            width: 90vw;
+            height: 600px;
+            padding: 5px;
+            
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: transparent;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            border: 1px solid #fff;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #c2c2c2;
+        }
+
+</style>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
@@ -33,33 +68,16 @@
       </div>
     </div>
   </nav>
-    <input type="text" id="userInput" placeholder="Enter JSON data here">
-    <button onclick="processInput()">Process Input</button>
+
+  <textarea class="center" id="userInput" name="userInput" rows="4" cols="50" placeholder="Enter JSON data here"></textarea>
+
+
+    <button class="center" onclick="processInput()">Process Input</button>
     <div id="resultDiv"></div>
 
     <script>
-        // Initialize jsonData with placeholder data
-        let jsonData = [
-            {
-                "Assignable Id": "1",
-                "Assignable Name": "Sunshine book",
-                "Project, Customer": "June SP",
-                "Day": "27 Oct 2023",
-                "User": "Me",
-                "Spent": "0.25",
-                "SAPNR": "1234"
-            },
-            {
-                "Assignable Id": "2",
-                "Assignable Name": "Sunshine book",
-                "Project, Customer": "June SP",
-                "Day": "27 Oct 2023",
-                "User": "Me",
-                "Spent": "0.25",
-                "SAPNR": "1234"
-            },
-            // Add more data items as needed
-        ];
+        // Initialize jsonData object
+        let jsonData = [];
 
         // Create an object to store the grouped and summed results
         let groupedData = {};
@@ -68,9 +86,6 @@
         function processData() {
             // Reset groupedData
             groupedData = {};
-
-            // Your grouping and summing code here
-            // ...
 
             // Iterate through the JSON array
             jsonData.forEach(item => {
@@ -115,12 +130,15 @@
                     isFirstDate = false;
                     formattedResult += day + ":<br>";
                     for (const sapnr in groupedData[day]) {
-                        formattedResult += `${sapnr} : ${groupedData[day][sapnr]},<br>`;
+                        formattedResult += `${sapnr} : ${groupedData[day][sapnr]}<br>`;
                     }
                 }
                 resultDiv.innerHTML = formattedResult;
             } catch (error) {
-                console.error("Invalid JSON input:", error);
+                //console.error("Invalid JSON input:", error);
+
+                const resultDiv = document.getElementById("resultDiv");
+                resultDiv.innerHTML = "Invalid JSON input" + "<br>"+error;
                 // Handle the case where the user input is not valid JSON data
             }
         }
