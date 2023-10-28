@@ -17,11 +17,6 @@
             max-width: 500px;
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
         #userInput {
             width: 90vw;
             height: 600px;
@@ -29,7 +24,7 @@
             
         }
 
-        button {
+        .processBtn {
             padding: 10px 20px;
             background-color: transparent;
             color: #fff;
@@ -39,7 +34,7 @@
             margin-top: 20px;
         }
 
-        button:hover {
+        .processBtn:hover {
             background-color: #c2c2c2;
         }
 
@@ -72,7 +67,7 @@
   <textarea class="center" id="userInput" name="userInput" rows="4" cols="50" placeholder="Enter JSON data here"></textarea>
 
 
-    <button class="center" onclick="processInput()">Process Input</button>
+    <button class="center processBtn" onclick="processInput()">Process Input</button>
     <div id="resultDiv"></div>
 
     <script>
