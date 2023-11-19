@@ -58,8 +58,6 @@
   </nav>
 
   <textarea class="center" id="userInput" name="userInput" rows="4" cols="50" placeholder="Enter JSON data here"></textarea>
-
-
     <button class="center processBtn" onclick="processInput()">Process Input</button>
     <div id="resultDiv"></div>
 
@@ -95,6 +93,15 @@
             });
         }
 
+        // Function to calculate the total spent for each day
+        function calculateDailyTotal() {
+            const dailyTotal = {};
+            for (const day in groupedData) {
+                dailyTotal[day] = Object.values(groupedData[day]).reduce((acc, val) => acc + val, 0);
+            }
+            return dailyTotal;
+        }
+
         // Function to process the user input and display the results
         function processInput() {
             // Get the user input (JSON data) from the HTML input block
@@ -106,6 +113,9 @@
 
                 // Update the groupedData using processData function
                 processData();
+
+                // Calculate daily totals
+                const dailyTotal = calculateDailyTotal();
 
                 // Format the results as requested with line breaks
                 const resultDiv = document.getElementById("resultDiv");
@@ -120,6 +130,8 @@
                     for (const sapnr in groupedData[day]) {
                         formattedResult += `${sapnr} : ${groupedData[day][sapnr]}<br>`;
                     }
+
+                    formattedResult += `Total Spent: ${dailyTotal[day]}<br>`;
                 }
                 resultDiv.innerHTML = formattedResult;
             } catch (error) {

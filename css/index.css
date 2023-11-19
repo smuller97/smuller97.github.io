@@ -35,6 +35,7 @@ margin-right: auto;
     }
     .navbar-brand, .nav-link{
         color: #4B0082;
+        width: 125px;
     }
     a:hover{
         color: #4B0082;
