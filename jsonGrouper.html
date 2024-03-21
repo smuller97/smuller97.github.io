@@ -143,6 +143,10 @@
                 // Handle the case where the user input is not valid JSON data
             }
         }
+    
+        document.getElementById("userInput").addEventListener("paste", function(event) {
+          processInput();
+        });
     </script>
 </body>
 </html>
